@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 def index(request):
     content = {
-        'title': 'Geekshop', }
+        'title': 'GeekShop', }
 
     return render(request, 'mainapp/index.html', content)
 
