@@ -1,6 +1,6 @@
 from django.shortcuts import render
-import json
-
+from django.http import HttpResponseRedirect
+from .models import ProductCategory, Product, CatalogName
 
 # Create your views here.
 
@@ -11,11 +11,12 @@ def index(request):
 
 
 def products(request):
-    with open('mainapp/fixtures/products.json', encoding='utf-8') as f:
-        products_list = json.load(f)
-    content = {
-        'title': 'GeekShop - Каталог',
-        'products': products_list,
+    context = {
+        'title': 'Geekshop - Каталог',
     }
-    return render(request, 'mainapp/products.html', content)
 
+    # Получение данных из БД
+    context['product_category'] = ProductCategory.objects.all()
+    context['products'] = Product.objects.all()
+    context['catalog_name'] = CatalogName.objects.all()
+    return render(request, 'mainapp/products.html', context)
