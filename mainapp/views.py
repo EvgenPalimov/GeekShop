@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import ProductCategory, Product, CatalogName
-
+from .models import ProductCategory, Product
 # Create your views here.
 
 def index(request):
@@ -18,5 +17,4 @@ def products(request):
     # Получение данных из БД
     context['product_category'] = ProductCategory.objects.all()
     context['products'] = Product.objects.all()
-    context['catalog_name'] = CatalogName.objects.all()
     return render(request, 'mainapp/products.html', context)

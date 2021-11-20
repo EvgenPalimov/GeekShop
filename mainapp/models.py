@@ -20,10 +20,3 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name} | {self.category}'
-
-
-class CatalogName(models.Model):
-    name = models.CharField(max_length=64)
-
-    def __str__(self):
-        return f'{self.name}'
