@@ -3,10 +3,10 @@ from django.shortcuts import render
 # Create your views here.
 def login(request):
     content = {
-        'title': 'GeekShop | Авторизация', }
+        'title': 'GeekShop | РђРІС‚РѕСЂРёР·Р°С†РёСЏ', }
     return render(request, 'authapp/login.html', content)
 
 def registration(request):
     content = {
-        'title': 'GeekShop | Регистрация', }
+        'title': 'GeekShop | Р РµРіРёСЃС‚СЂР°С†РёСЏ', }
     return render(request, 'authapp/registration.html', content)

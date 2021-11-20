@@ -1,5 +1,5 @@
 from django.urls import path
-from authapp.views import registration, login
+from authapp.views import login, registration
 
 app_name = 'authapp'
 urlpatterns = [
