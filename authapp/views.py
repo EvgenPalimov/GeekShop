@@ -40,7 +40,7 @@ def registration(request):
         else:
             print(form.errors)
     else:
-        form = UserLoginForm()
+        form = UserRegistrationForm()
     content = {
         'title': 'GeekShop | Регистрация',
         'form': form

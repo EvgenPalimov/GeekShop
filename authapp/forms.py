@@ -32,6 +32,3 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
-
-
-

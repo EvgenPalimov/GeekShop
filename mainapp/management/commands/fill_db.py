@@ -1,6 +1,7 @@
 import json
 from django.core.management.base import BaseCommand
 from mainapp.models import ProductCategory, Product
+from authapp.models import User
 
 def load_from_json(file_name):
     with open(file_name, mode='r', encoding='utf-8') as infile:
@@ -28,3 +29,12 @@ class Command(BaseCommand):
             prod['category'] = _category
             new_category = Product(**prod)
             new_category.save()
+
+            # users = load_from_json('authapp/fixtures/users.json')
+            #
+            # User.objects.all().delete()
+            # for user in users:
+            #     us = user.get('fields')
+            #     us['id'] = user.get('pk')
+            #     new_category = User(**us)
+            #     new_category.save()
