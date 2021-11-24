@@ -11,7 +11,7 @@ def index(request):
 
 def products(request):
     context = {
-        'title': 'Geekshop - Каталог',
+        'title': 'GeekShop | Каталог',
     }
 
     # Получение данных из БД
