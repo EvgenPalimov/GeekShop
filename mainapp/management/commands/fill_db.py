@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
             # users = load_from_json('authapp/fixtures/users.json')
             #
-            # User.objects.all().delete()
+            User.objects.all().delete()
             # for user in users:
             #     us = user.get('fields')
             #     us['id'] = user.get('pk')
