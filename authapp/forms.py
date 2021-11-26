@@ -55,3 +55,9 @@ class UserProfileForm(UserChangeForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
+
+    def clean(self):
+        data = self.cleaned_data['image']
+        if data.size > 2621440: # Размер 2,5Мб составляет - 2621440
+            raise ValueError('Ваш аватар слишком много весит, мах размер файла 2,5Мб. ')
+        return data
