@@ -29,7 +29,7 @@ def login(request):
     }
     return render(request, 'authapp/login.html', content)
 
-
+@login_required
 def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
@@ -52,9 +52,11 @@ def profile(request):
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Данные, успешно сохранены!')
+            messages.set_level(request, messages.SUCCESS)
+            messages.success(request, 'Данные успешно сохранены!')
         else:
-            messages.error(request, 'Error updating your profile')
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, form.errors)
 
     content = {
         'title': 'GeekShop | Профайл',
