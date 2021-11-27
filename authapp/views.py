@@ -29,7 +29,7 @@ def login(request):
     }
     return render(request, 'authapp/login.html', content)
 
-@login_required
+
 def registration(request):
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
