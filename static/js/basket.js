@@ -1,6 +1,6 @@
 window.onload = function () {
-    $('.basket_list').on('click', 'input[type="number"]', function () {
-        let t_href = event.target
+    $('.basket_list').on('click', 'input[type="number"]', (e) => {
+        let t_href = e.target
         $.ajax(
             {
                 url: "/baskets/edit/" + t_href.name + "/" + t_href.value + "/",
@@ -8,11 +8,11 @@ window.onload = function () {
                     $('.basket_list').html(data.result)
                 },
             });
-        event.preventDefault()
+        e.preventDefault()
     })
 
-    $('.card_add_basket').on('click', 'button[type="button"]', function () {
-        let t_href = event.target.value
+    $('.card_add_basket').on('click', 'button[type="button"]', (e) => {
+        let t_href = e.target.value
         $.ajax(
             {
                 url: "/baskets/add/" + t_href + "/",
@@ -21,6 +21,6 @@ window.onload = function () {
                     alert('товар добавлен вы корзину')
                 },
             });
-        event.preventDefault()
+        e.preventDefault()
     })
 }

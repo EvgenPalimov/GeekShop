@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -51,13 +52,15 @@ def basket_remove(request, basket_id):
 def basket_edit(request, id_basket, quantity):
     if request.is_ajax():
         basket = Basket.objects.get(id=id_basket)
-        if quantity > 0:
-            basket.quantity = quantity
-            basket.save()
-        else:
-            basket.delete()
+        basket.quantity = quantity
+        basket.save()
 
         baskets = Basket.objects.filter(user=request.user)
         context = {'baskets': baskets}
         result = render_to_string('baskets/basket.html', context)
         return JsonResponse({'result': result})
+
+
+def foo_view(request):
+    return render(request, 'foo_tpl.html', {'is_error': False})
+
