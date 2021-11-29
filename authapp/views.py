@@ -23,11 +23,11 @@ def login(request):
                 return HttpResponseRedirect(reverse('mainapp:products'))
     else:
         form = UserLoginForm()
-    content = {
+    context = {
         'title': 'GeekShop | Авторизация',
         'form': form
     }
-    return render(request, 'authapp/login.html', content)
+    return render(request, 'authapp/login.html', context)
 
 
 def registration(request):
@@ -39,11 +39,11 @@ def registration(request):
             return HttpResponseRedirect(reverse('authapp:login'))
     else:
         form = UserRegistrationForm()
-    content = {
+    context = {
         'title': 'GeekShop | Регистрация',
         'form': form
     }
-    return render(request, 'authapp/registration.html', content)
+    return render(request, 'authapp/registration.html', context)
 
 
 @login_required
@@ -58,12 +58,12 @@ def profile(request):
             messages.set_level(request, messages.ERROR)
             messages.error(request, form.errors)
 
-    content = {
+    context = {
         'title': 'GeekShop | Профайл',
         'form': UserProfileForm(instance=request.user),
         'baskets': Basket.objects.filter(user=request.user)
     }
-    return render(request, 'authapp/profile.html', content)
+    return render(request, 'authapp/profile.html', context)
 
 
 def logout(request):

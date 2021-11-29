@@ -18,3 +18,12 @@ def products(request):
     context['product_category'] = ProductCategory.objects.all()
     context['products'] = Product.objects.all()
     return render(request, 'mainapp/products.html', context)
+
+def detail(request, product_id):
+    context = {
+        'title': 'GeekShop | Карточка товара', }
+
+    product = Product.objects.filter(id=product_id)
+    context['product'] = product
+
+    return render(request, 'mainapp/detail.html', context)
