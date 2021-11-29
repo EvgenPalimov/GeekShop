@@ -1,8 +1,5 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
-
 # Create your views here.
 from django.template.loader import render_to_string
 
@@ -59,8 +56,3 @@ def basket_edit(request, id_basket, quantity):
         context = {'baskets': baskets}
         result = render_to_string('baskets/basket.html', context)
         return JsonResponse({'result': result})
-
-
-def foo_view(request):
-    return render(request, 'foo_tpl.html', {'is_error': False})
-

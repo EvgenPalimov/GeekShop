@@ -1,3 +1,5 @@
+
+
 window.onload = function () {
     $('.basket_list').on('click', 'input[type="number"]', (e) => {
         let t_href = e.target
@@ -17,8 +19,8 @@ window.onload = function () {
             {
                 url: "/baskets/add/" + t_href + "/",
                 success: function (data) {
-                    $('.card_add_basket').html(data.result)
-                    alert('товар добавлен вы корзину')
+                    $('.card_add_basket').html(data.result);
+                    swal('Спасибо!', 'Ваш товар, добавлен в корзину!', 'success')
                 },
             });
         e.preventDefault()
