@@ -21,9 +21,9 @@ def products(request):
 
 def detail(request, product_id):
     context = {
-        'title': 'GeekShop | Карточка товара', }
+        'title': 'Карточка товара', }
 
-    product = Product.objects.filter(id=product_id)
+    product = Product.objects.get(id=product_id)
     context['product'] = product
 
     return render(request, 'mainapp/detail.html', context)
