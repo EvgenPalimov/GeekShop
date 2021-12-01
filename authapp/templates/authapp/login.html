@@ -1,4 +1,9 @@
 {% extends 'authapp/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/auth-admins.css' %}" rel="stylesheet"/>
+{% endblock %}
+
 {% block content %}
     <div class="col-lg-5">
         {% if form.non_field_errors or messages %}
