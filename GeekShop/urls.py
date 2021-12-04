@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 from mainapp.views import index, products
 
 urlpatterns = [
-    path('admins/', admin.site.urls),
     path('', index, name='index'),
     path('products/', include('mainapp.urls', namespace='mainapp')),
     path('users/', include('authapp.urls', namespace='authapp')),

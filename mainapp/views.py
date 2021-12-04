@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.views.generic import DetailView
+
 from .models import ProductCategory, Product
+
+
 # Create your views here.
 
 def index(request):
@@ -10,20 +13,23 @@ def index(request):
 
 
 def products(request):
-    context = {
-        'title': 'GeekShop | Каталог',
-    }
+    context = {'title': 'GeekShop | Каталог', 'product_category': ProductCategory.objects.all(),
+               'products': Product.objects.all()}
 
     # Получение данных из БД
-    context['product_category'] = ProductCategory.objects.all()
-    context['products'] = Product.objects.all()
     return render(request, 'mainapp/products.html', context)
 
-def detail(request, product_id):
-    context = {
-        'title': 'Карточка товара', }
 
-    product = Product.objects.get(id=product_id)
-    context['product'] = product
+class ProductDetail(DetailView):
+    """
+    Контроллер вывода информации о продукте
+    """
+    model = Product
+    template_name = 'mainapp/detail.html'
 
-    return render(request, 'mainapp/detail.html', context)
+    def get_context_data(self, **kwargs):
+        """Добавляем список категории для вывода сайдбара с катеногриями на странице каталога"""
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        product = self.get_object()
+        context['product'] = product
+        return context
