@@ -8,14 +8,21 @@ from .models import ProductCategory, Product
 
 def index(request):
     content = {
-        'title': 'GeekShop', }
+        'title': 'GeekShop',
+    }
     return render(request, 'mainapp/index.html', content)
 
 
-def products(request):
-    context = {'title': 'GeekShop | Каталог', 'product_category': ProductCategory.objects.all(),
-               'products': Product.objects.all()}
+def products(request, id_category=None):
+    context = {
+        'title': 'GeekShop | Каталог'
+    }
 
+    context['categories'] = ProductCategory.objects.all()
+    if id_category:
+        context['products'] = Product.objects.filter(category_id=id_category)
+    else:
+        context['products'] = Product.objects.all()
     # Получение данных из БД
     return render(request, 'mainapp/products.html', context)
 
