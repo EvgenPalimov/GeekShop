@@ -1,10 +1,10 @@
 from django.urls import path
-from authapp.views import login, registration, logout, profile
+from authapp.views import UserLoginView, UserShopCreateView, UserLogoutView, UserShopUpdateView
 
 app_name = 'authapp'
 urlpatterns = [
-    path('login/', login, name='login'),
-    path('registration/', registration, name='registration'),
-    path('profile/', profile, name='profile'),
-    path('logout/', logout, name='logout'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('registration/', UserShopCreateView.as_view(), name='registration'),
+    path('profile/<int:pk>', UserShopUpdateView.as_view(), name='profile'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
 ]

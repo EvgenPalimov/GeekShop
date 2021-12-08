@@ -5,7 +5,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Редактирование пользователя | {{ user.username | title}}</h1>
+                <h1 class="mt-4">Редактирование пользователя | {{ user.username }}</h1>
                 <div class="col-lg-12 text-center">
                     <img width="200" height="200"
                          src="{% if user.image %} {{ user.image.url }} {% else %}

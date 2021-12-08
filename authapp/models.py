@@ -4,12 +4,11 @@ from django.db import models
 
 
 # Create your models here.
-from mainapp.mixin import MaxSizeValidator
+from mainapp.mixin import MaxSizeValidator, BaseClassContextMixin
 
 
-class User(AbstractUser):
+class User(AbstractUser, BaseClassContextMixin):
     image = models.ImageField(verbose_name='Аватар', upload_to='users_image',
-        blank=True, validators=[MaxSizeValidator(2), FileExtensionValidator(['.jpg', '.png'],
-            message='Файл должен иметь расширение .jpg или .png')])
+        blank=True, validators=[MaxSizeValidator(2)])
     age = models.PositiveIntegerField(verbose_name='Возраст', default=18)
 

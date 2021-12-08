@@ -68,8 +68,9 @@ class ProductCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixin, 
     template_name = 'admins/products/admin-products-create.html'
     form_class = ProductAdminRegistrationForm
     success_url = reverse_lazy('admins:admin_products')
-    success_message = "dcfada"
+    success_message = "%(name)s was created successfully"
     title = 'Админ | Создать продукт'
+
 
 
 class ProductUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixin):
@@ -85,6 +86,7 @@ class ProductDeleteView(DeleteView, CustomDispatchMixin, BaseClassContextMixin):
     template_name = 'admins/products/admin-products-update-delete.html'
     success_url = reverse_lazy('admins:admin_products')
     title = 'Админ | Удаление товара'
+
 
 
 class CategoriesListView(ListView, CustomDispatchMixin, BaseClassContextMixin):
