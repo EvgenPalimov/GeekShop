@@ -28,9 +28,13 @@
                     <div class="form-row mb-2">
                         <div class="col-lg-12">
                             <div class="custom-file">
-                                {{ form.image }}
-                                <label class="custom-file-label" for="{{ form.image.id_for_label }}"
-                                >Выберите свой аватар</label>
+                                {% if post.image %}
+                                    {{ form.image }}
+                                    <label class="custom-file-label" for="{{ form.image.id_for_label }}"
+                                        >Выберите свой аватар</label>
+                                {% else %}
+                                    <p>Обязательно добавьте изображение</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

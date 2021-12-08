@@ -17,15 +17,40 @@
                                 <tr>
                                     <th>Название категории</th>
                                     <th>Описание</th>
+                                    <th>Активность</th>
+                                    <th>Изменить</th>
+                                    <th>Удалить</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                {% for category in categories %}
+                                {% for category in object_list %}
                                     <tr>
-                                        <td><a href="{% url 'admins:admin_categories_update' category.id%}" style="color: dodgerblue">
-                                        {{ category.name | title}}</a></td>
+                                        <td>{{ category.name | title }}</td>
                                         <td>{{ category.description }}</td>
+                                        <td class="text-center">
+                                            {% if category.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td><a href="{% url 'admins:admin_categories_update' category.id %}">
+                                            <input class="btn btn-success btn-block" type="submit" value="Изменить">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <form action="{% url 'admins:admin_categories_delete' category.id %}" method="post">
+                                                {% csrf_token %}
+                                                {% if category.is_active %}
+                                                    <input class="btn btn-danger btn-block" type="submit"
+                                                           value="Удалить">
+                                                {% else %}
+                                                    <input class="btn btn-success btn-block" type="submit"
+                                                           value="Восстановить">
+                                                {% endif %}
+                                            </form>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -55,25 +55,14 @@ class ProductAdminProfileForm(ProductAdminRegistrationForm):
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
 
-class ProductCategoriesAdminRegistrationForm(ModelForm):
+class CategoryUpdateFormAdmin(forms.ModelForm):
 
     class Meta:
         model = ProductCategory
         fields = ('name', 'description')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['placeholder'] = 'Введите имя продукта'
-        self.fields['description'].widget.attrs['placeholder'] = 'Введите описание товара'
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
-
-
-class ProductCategoriesAdminProfileForm(ProductCategoriesAdminRegistrationForm):
-
-    def __init__(self, *args, **kwargs):
-        super(ProductCategoriesAdminRegistrationForm, self).__init__(*args, **kwargs)
-
+        super(CategoryUpdateFormAdmin, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
 
