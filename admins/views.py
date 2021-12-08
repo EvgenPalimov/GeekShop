@@ -71,10 +71,6 @@ class ProductCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixin, 
     success_message = "dcfada"
     title = 'Админ | Создать продукт'
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get('image')
-        if self.object == False or None or '':
-            return ValueError("fsada")
 
 class ProductUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixin):
     model = Product
@@ -104,6 +100,7 @@ class CategoriesCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixi
     success_url = reverse_lazy('admins:admin_categories')
     title = 'Админ | Создать категорию'
     success_message = "%(name)s was created successfully"
+
 
 class CategoriesUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixin):
     model = ProductCategory

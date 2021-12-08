@@ -6,16 +6,16 @@
             <div class="container-fluid">
                 <h1 class="mt-4">Создание продукта</h1>
                 {% if form.errors %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert"
-                         style="margin-top: 50px;">
-                        {% for error in form.errors %}
-                            {{ error | escape }}
-                        {% endfor %}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% endif %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                 style="margin-top: 50px;">
+                {% for error in form.errors %}
+                    {{ error | escape }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
                 <form action="{% url 'admins:admin_products_create' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-row">
@@ -57,7 +57,7 @@
                             {{ form.quantity }}
                         </div>
                         <div class="col-lg-4">
-                            <label class="small mb-1" for="{{ form.category.id_for_label }}">
+                            <label class="small mb-1" for="{{ form.category.id_for_label }}" >
                                 Введите категорию товара
                             </label>
                             {{ form.category }}

@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.base import ContextMixin
-from django.db import models
+
 
 class CustomDispatchMixin(View):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
