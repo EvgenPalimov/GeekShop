@@ -1,10 +1,8 @@
-from django.contrib import auth, messages
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.messages.views import SuccessMessageMixin
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
@@ -30,51 +28,41 @@ class UserShopCreateView(CreateView, BaseClassContextMixin):
     success_url = reverse_lazy('authapp:login')
     title = 'GeekShop | Создать пользователя'
 
+    def post(self, request, *args, **kwargs):
 
-class UserShopUpdateView(UpdateView, BaseClassContextMixin, SuccessMessageMixin):
-    model = User
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.set_level(request, messages.SUCCESS)
+            messages.success(request, 'Вы успешно зарегистрировались!')
+            return HttpResponseRedirect(reverse('authapp:login'))
+        else:
+            messages.set_level(request, messages.ERROR)
+            messages.error(request, form.errors)
+        return render(request, self.template_name, {'form': form})
+
+
+class UserShopUpdateView(UpdateView, BaseClassContextMixin, UserDipatchMixin):
     template_name = 'authapp/profile.html'
     form_class = UserProfileForm
     success_url = reverse_lazy('authapp:profile')
-    title = 'Админ | Редактирование пользователя'
-    success_message = "%(calculated_field)s was created successfully"
+    title = 'GeekShop - Профиль'
 
-    def get_success_message(self, cleaned_data):
-        self.object = self.get_object()
-        if self.object.is_valid():
-            return self.success_message % dict(
-                cleaned_data,
-                calculated_field=self.object.calculated_field,
-            )
-        else:
-            return self.object.errors
+    def form_valid(self, form):
+        messages.set_level(self.request, messages.SUCCESS)
+        messages.success(self.request, "Данные успешно сохранены!")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
+    def get_object(self, *args, **kwargs):
+        return get_object_or_404(User, pk=self.request.user.pk)
 
-# @login_required
-# def profile(request):
-#     if request.method == 'POST':
-#         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.set_level(request, messages.SUCCESS)
-#             messages.success(request, 'Данные успешно сохранены!')
-#         else:
-#             messages.set_level(request, messages.ERROR)
-#             messages.error(request, form.errors)
-#
-#     context = {
-#         'title': 'GeekShop | Профайл',
-#         'form': UserProfileForm(instance=request.user),
-#         'baskets': Basket.objects.filter(user=request.user)
-#     }
-#     return render(request, 'authapp/profile.html', context)
+    def get_context_data(self, **kwargs):
+        context = super(UserShopUpdateView, self).get_context_data(**kwargs)
+        context['baskets'] = Basket.objects.filter(user=self.request.user)
+        return context
+
 
 class UserLogoutView(LogoutView, BaseClassContextMixin):
-    model = User
     template_name = 'mainapp/index.html'
-    success_url = reverse_lazy('index')
     title = 'GeekShop | Выход'
-
-# def logout(request):
-#     auth.logout(request)
-#     return render(request, 'mainapp/index.html')

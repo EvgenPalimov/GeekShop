@@ -5,6 +5,6 @@ app_name = 'authapp'
 urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),
     path('registration/', UserShopCreateView.as_view(), name='registration'),
-    path('profile/<int:pk>', UserShopUpdateView.as_view(), name='profile'),
+    path('profile/', UserShopUpdateView.as_view(), name='profile'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
 ]

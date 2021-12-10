@@ -17,7 +17,7 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=64)
-    image = models.ImageField(upload_to='product_image', blank=True, validators=[MaxSizeValidator(2)])
+    image = models.ImageField(upload_to='product_image', validators=[MaxSizeValidator(2)])
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
