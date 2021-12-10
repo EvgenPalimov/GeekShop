@@ -1,8 +1,7 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.views.generic import DetailView, ListView, TemplateView
 
-from .mixin import BaseClassContextMixin, CustomDispatchMixin
+from .mixin import BaseClassContextMixin
 from .models import ProductCategory, Product
 
 
@@ -19,7 +18,6 @@ class CatalogListView(ListView, BaseClassContextMixin):
     template_name = 'mainapp/products.html'
     title = 'GeekShop | Каталог'
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CatalogListView, self).get_context_data(**kwargs)
 
@@ -33,30 +31,6 @@ class CatalogListView(ListView, BaseClassContextMixin):
         page_obj = paginator.get_page(page_number)
         context['products'] = page_obj
         return context
-
-
-# def products(request, id_category=None, page=1):
-#     context = {
-#         'title': 'GeekShop | Каталог'
-#     }
-#
-#     if id_category:
-#         products = Product.objects.filter(category_id=id_category)
-#     else:
-#         products = Product.objects.all()
-#
-#     paginator = Paginator(products, per_page=3)
-#
-#     try:
-#         products_paginator = paginator.page(page)
-#     except PageNotAnInteger:
-#         products_paginator = paginator.page(1)
-#     except EmptyPage:
-#         products_paginator = paginator.page(paginator.num_pages)
-#
-#     context['products'] = products_paginator
-#     context['categories'] = ProductCategory.objects.all()
-#     return render(request, 'mainapp/products.html', context)
 
 
 class ProductDetail(DetailView):

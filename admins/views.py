@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
@@ -68,9 +69,14 @@ class ProductCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixin, 
     template_name = 'admins/products/admin-products-create.html'
     form_class = ProductAdminRegistrationForm
     success_url = reverse_lazy('admins:admin_products')
-    success_message = "%(name)s was created successfully"
+    success_message = "%(name)s продукт успешно создан"
     title = 'Админ | Создать продукт'
 
+    def form_valid(self, form):
+        messages.set_level(self.request, messages.SUCCESS)
+        messages.success(self.request, "Продукт успешно создан!")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixin):
@@ -95,13 +101,18 @@ class CategoriesListView(ListView, CustomDispatchMixin, BaseClassContextMixin):
     title = 'Админ | Категории'
 
 
-class CategoriesCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixin, SuccessMessageMixin):
+class CategoriesCreateView(CreateView, CustomDispatchMixin, BaseClassContextMixin):
     model = ProductCategory
     template_name = 'admins/categories/admin-categories-create.html'
     form_class = CategoryUpdateFormAdmin
     success_url = reverse_lazy('admins:admin_categories')
     title = 'Админ | Создать категорию'
-    success_message = "%(name)s was created successfully"
+
+    def form_valid(self, form):
+        messages.set_level(self.request, messages.SUCCESS)
+        messages.success(self.request, "Категория успешна создана!")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CategoriesUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixin):
