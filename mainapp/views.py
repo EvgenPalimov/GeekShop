@@ -19,20 +19,19 @@ class CatalogListView(ListView, BaseClassContextMixin):
     template_name = 'mainapp/products.html'
     title = 'GeekShop | Каталог'
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CatalogListView, self).get_context_data(**kwargs)
 
         context['categories'] = ProductCategory.objects.all()
-        context['products'] = Product.objects.all()
-        paginator = Paginator(context['object_list'], 3)
-        page = self.request.GET.get('page', 1)
-        try:
-            context['object_list'] = paginator.page(page)
-        except PageNotAnInteger:
-            context['object_list'] = paginator.page(1)
-        except EmptyPage:
-            context['object_list'] = paginator.page(paginator.num_pages)
-
+        if self.kwargs:
+            products = Product.objects.filter(category_id=self.kwargs.get('id_category')).order_by('name')
+        else:
+            products = Product.objects.all().order_by('name')
+        paginator = Paginator(products, per_page=3)
+        page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+        context['products'] = page_obj
         return context
 
 
