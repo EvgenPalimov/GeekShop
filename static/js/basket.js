@@ -1,6 +1,7 @@
-
-
 window.onload = function () {
+
+
+
     $('.basket_list').on('click', 'input[type="number"]', (e) => {
         let t_href = e.target
         $.ajax(
@@ -13,9 +14,9 @@ window.onload = function () {
         e.preventDefault()
     })
 
-    let csrf = $('meta[name="csrf-tokrn"]').attr('content');
-    $('.card_add_basket').on('click', 'button[type="button"]', (e) => {
-        let t_href = e.target.value
+    var csrf = $('meta[name="csrf_token"]').attr('content');
+    $('.card_add_basket').on('click', 'button[type="submit"]', (e) => {
+        let t_href = e.target.post.value
         $.ajax(
             {
                 type: 'POST',

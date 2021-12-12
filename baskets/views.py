@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 # Create your views here.
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import CreateView
 
@@ -11,10 +12,11 @@ from mainapp.models import Product
 class BasketAddCreateView(CreateView, UserDipatchMixin):
     title = 'GeekShop | Создать продукт'
 
+
     def post(self, request, *args, **kwargs):
-        if request.is_ajax():
+        if request.is_ajax:
             user_select = request.user
-            product = Product.objects.get(id=id)
+            product = Product.objects.get(id=self.kwargs.get('id'))
             baskets = Basket.objects.filter(user=user_select, product=product)
             if baskets:
                 basket = baskets.first()
