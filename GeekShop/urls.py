@@ -18,10 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mainapp.views import index, products
+from mainapp.views import IndexTemplateView
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', IndexTemplateView.as_view(), name='index'),
     path('products/', include('mainapp.urls', namespace='mainapp')),
     path('users/', include('authapp.urls', namespace='authapp')),
     path('baskets/', include('baskets.urls', namespace='baskets')),

@@ -5,15 +5,15 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Редактирование пользователя | {{ user_select.username }}</h1>
+                <h1 class="mt-4">Редактирование пользователя | {{ user.username }}</h1>
                 <div class="col-lg-12 text-center">
                     <img width="200" height="200"
-                         src="{% if user_select.image %} {{ user_select.image.url }} {% else %}
+                         src="{% if user.image %} {{ user.image.url }} {% else %}
                          {% static 'vendor/img/users/default_avatar.jpg' %} {% endif %}"
                          class="img-thumbnail" alt="Аватар профиля">
                 </div>
                 <div class="card-body">
-                    <form action="{% url 'admins:admin_users_update' user_select.id %}" method="post"
+                    <form action="{% url 'admins:admin_users_update' user.id %}" method="post"
                           enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-row">
@@ -60,11 +60,11 @@
                             </div>
                         </div>
                     </form>
-                    <form action="{% url 'admins:admin_users_delete' user_select.id %}" method="post">
+                    <form action="{% url 'admins:admin_users_delete' user.id %}" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-lg-12" style="margin-top: 33px;">
-                                {% if user_select.is_active %}
+                                {% if user.is_active %}
                                     <input class="btn btn-danger btn-block" type="submit" value="Удалить">
                                 {% else %}
                                     <input class="btn btn-success btn-block" type="submit" value="Восстановить">

@@ -1,23 +1,36 @@
-from django.shortcuts import render
-from django.views.generic import DetailView
+from django.core.paginator import Paginator
+from django.views.generic import DetailView, ListView, TemplateView
 
+from .mixin import BaseClassContextMixin
 from .models import ProductCategory, Product
 
 
 # Create your views here.
 
-def index(request):
-    content = {
-        'title': 'GeekShop', }
-    return render(request, 'mainapp/index.html', content)
+
+class IndexTemplateView(TemplateView, BaseClassContextMixin):
+    template_name = 'mainapp/index.html'
+    title = 'GeekShop'
 
 
-def products(request):
-    context = {'title': 'GeekShop | Каталог', 'product_category': ProductCategory.objects.all(),
-               'products': Product.objects.all()}
+class CatalogListView(ListView, BaseClassContextMixin):
+    model = Product
+    template_name = 'mainapp/products.html'
+    title = 'GeekShop | Каталог'
 
-    # Получение данных из БД
-    return render(request, 'mainapp/products.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CatalogListView, self).get_context_data(**kwargs)
+
+        context['categories'] = ProductCategory.objects.all()
+        if self.kwargs:
+            products = Product.objects.filter(category_id=self.kwargs.get('id_category')).order_by('name')
+        else:
+            products = Product.objects.all().order_by('name')
+        paginator = Paginator(products, per_page=3)
+        page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+        context['products'] = page_obj
+        return context
 
 
 class ProductDetail(DetailView):
