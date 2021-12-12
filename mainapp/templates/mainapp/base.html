@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf_token" content="{{ csrf_token }}">
 
     <title>{{ title }}</title>
 
@@ -45,7 +44,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'authapp:profile'%} ">{{ user.username }}
+                    <a class="nav-link" href="{% url 'authapp:profile' %}">{{ user.username }}
                         <i class="fas fa-user-circle"></i>
                     </a>
                 </li>
