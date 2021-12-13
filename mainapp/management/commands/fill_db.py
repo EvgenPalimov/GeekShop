@@ -13,8 +13,8 @@ class Command(BaseCommand):
 
         ProductCategory.objects.all().delete()
         for category in categories:
-            cat = category.get('fields')
-            cat['id'] = category.get('pk')
+            cat = category.get()
+            cat['id'] = category.get()
             new_category = ProductCategory(**cat)
             new_category.save()
 
@@ -22,9 +22,9 @@ class Command(BaseCommand):
 
         Product.objects.all().delete()
         for product in products:
-            prod = product.get('fields')
-            prod['id'] = product.get('pk')
-            category = prod.get('category')
+            prod = product.get()
+            prod['id'] = product.get()
+            category = prod.get()
             _category = ProductCategory.objects.get(id=category)
             prod['category'] = _category
             new_category = Product(**prod)
