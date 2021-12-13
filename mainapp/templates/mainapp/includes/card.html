@@ -17,13 +17,14 @@
                             <p class="card-text">{{ product.description }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <div class="col-lg-12">
                                 <label>
-                                    <button id="button_basket" class="btn btn-outline-success btn-block" type="submit" formaction="{% url 'baskets:basket_add' product.id%}" >
-                                        Отправить в корзину
-                                    </button>
-                                        </label>
-                            </div>
+                                    <div class="button_basket">
+                                        <button id="button_basket" class="btn btn-outline-success"
+                                                type="button" value="{{ product.id }}">
+                                            Отправить в корзину
+                                        </button>
+                                    </div>
+                                </label>
                         </div>
                     </div>
                 </div>
