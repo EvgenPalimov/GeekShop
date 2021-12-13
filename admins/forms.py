@@ -53,8 +53,10 @@ class ProductAdminProfileForm(ProductAdminRegistrationForm):
         self.fields['quantity'].widget.attrs['readonly'] = True
 
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
-        self.fields['image'].widget.attrs['class'] = 'custom-file-input'
+            if field_name == 'image' or field_name == 'category':
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control py-4'
 
 
 class CategoryUpdateFormAdmin(forms.ModelForm):
