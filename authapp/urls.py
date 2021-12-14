@@ -7,4 +7,6 @@ urlpatterns = [
     path('registration/', UserShopCreateView.as_view(), name='registration'),
     path('profile/', UserShopUpdateView.as_view(), name='profile'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
+
+    path('verify/<str:email>/<str:activate_key>/', UserShopCreateView.verify, name='verify')
 ]
