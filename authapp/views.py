@@ -1,5 +1,7 @@
-from django.contrib import messages
+from django.conf import settings
+from django.contrib import messages, auth
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -8,6 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
+import authapp
 from authapp.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from authapp.models import User
 from baskets.models import Basket
@@ -32,14 +35,38 @@ class UserShopCreateView(CreateView, BaseClassContextMixin):
 
         form = self.form_class(data=request.POST)
         if form.is_valid():
-            form.save()
-            messages.set_level(request, messages.SUCCESS)
-            messages.success(request, 'Вы успешно зарегистрировались!')
-            return HttpResponseRedirect(reverse('authapp:login'))
+            user = form.save()
+            if self.send_verify_link(user):
+                messages.set_level(request, messages.SUCCESS)
+                messages.success(request, 'Вы успешно зарегистрировались!')
+                return HttpResponseRedirect(reverse('authapp:login'))
+            else:
+                messages.set_level(request, messages.ERROR)
+                messages.error(request, form.errors)
         else:
             messages.set_level(request, messages.ERROR)
             messages.error(request, form.errors)
         return render(request, self.template_name, {'form': form})
+
+    def send_verify_link(self, user):
+        verify_link = reverse('authapp:verify', args=[user.email, user.activation_key])
+        subject = f'Для активации учетной записи {user.username} пройдите по ссылке.'
+        message = f'Для потверждения учетной записи {user.username} на портале: \n' \
+                  f'{settings.DOMAIN_NAME}{verify_link}'
+        return send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+
+    def verify(self, email:str, activate_key):
+        try:
+            user = User.objects.get(email=email)
+            if user and user.activation_key == activate_key and not user.is_activation_key_expires():
+                user.activation_key = ''
+                user.activation_key_expires = None
+                user.is_active = True
+                user.save()
+                auth.login(self, user)
+                return render(self, 'authapp/verification.html')
+        except Exception as e:
+            return HttpResponseRedirect(reverse('index'))
 
 
 class UserShopUpdateView(UpdateView, BaseClassContextMixin, UserDipatchMixin):
@@ -56,12 +83,6 @@ class UserShopUpdateView(UpdateView, BaseClassContextMixin, UserDipatchMixin):
 
     def get_object(self, *args, **kwargs):
         return get_object_or_404(User, pk=self.request.user.pk)
-
-    def get_context_data(self, **kwargs):
-        context = super(UserShopUpdateView, self).get_context_data(**kwargs)
-        context['baskets'] = Basket.objects.filter(user=self.request.user)
-        return context
-
 
 class UserLogoutView(LogoutView, BaseClassContextMixin):
     template_name = 'mainapp/index.html'
