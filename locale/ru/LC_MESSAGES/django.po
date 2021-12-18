@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-10 19:52+0500\n"
+"POT-Creation-Date: 2021-12-18 22:53+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,11 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admins/templates/admins/includes/siberia_bar.html.html:6
-msgid "Applications"
-msgstr "Приложения"
-
-#: admins/templates/admins/includes/siberia_bar.html.html:12
-msgid "Users"
-msgstr "Пользователи"
-
-#: admins/templates/admins/includes/siberia_bar.html.html:18
-msgid "Categories"
-msgstr "Категории"
-
-#: admins/templates/admins/includes/siberia_bar.html.html:24
-msgid "Product"
-msgstr "Продукт"
-
-#: .\GeekShop\settings.py:124
+#: .\GeekShop\settings.py:128
 msgid "English"
 msgstr "Английский"
 
-#: .\GeekShop\settings.py:125
+#: .\GeekShop\settings.py:129
 msgid "Russia"
 msgstr "Русский"
 
@@ -1240,3 +1224,15 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:249
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "Applications"
+#~ msgstr "Приложения"
+
+#~ msgid "Users"
+#~ msgstr "Пользователи"
+
+#~ msgid "Categories"
+#~ msgstr "Категории"
+
+#~ msgid "Product"
+#~ msgstr "Продукт"
