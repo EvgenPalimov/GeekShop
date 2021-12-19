@@ -1,4 +1,14 @@
 <div class="card_add_basket">
+    {% if messages %}
+        <div class="alert alert-success" role="alert" style="margin-top: 50px;">
+                {% for mes in messages %}
+                    {{ mes }}
+                {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
     <form id="form_add_basket" action="#" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
@@ -17,14 +27,14 @@
                             <p class="card-text">{{ product.description }}</p>
                         </div>
                         <div class="card-footer text-center">
-                                <label>
-                                    <div class="button_basket">
-                                        <button id="button_basket" class="btn btn-outline-success"
-                                                type="button" value="{{ product.id }}">
-                                            Отправить в корзину
-                                        </button>
-                                    </div>
-                                </label>
+                            <label>
+                                <div class="button_basket">
+                                    <button id="button_basket" class="btn btn-outline-success"
+                                            type="submit" formaction="{% url 'baskets:basket_add' product.id %}">
+                                        Отправить в корзину
+                                    </button>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>

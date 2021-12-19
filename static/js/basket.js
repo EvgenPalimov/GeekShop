@@ -16,22 +16,24 @@ window.onload = function () {
         event.preventDefault()
     })
 
-    var csrf = $('meta[name="csrf_token"]').attr('content');
-    $('.button_basket').on('click', 'button', function (event) {
-        let t_href = event.target.value
-        console.log(t_href)
-        $.ajax(
-            {
-                type: 'POST',
-                headers: {'X-CSRFToken': csrf},
-                url: "/baskets/add/" + t_href + "/",
-                success: function (data) {
-                    $('.card_add_basket').html(data.result)
-                },
-                error: function (data){
-                    console.log(data)
-                }
-            });
-        event.preventDefault()
-    })
+    // var csrf = $('meta[name="csrf_token"]').attr('content');
+    // $('.button_basket').on('click', 'button', function (event) {
+    //     let t_href = event.target.value
+    //     console.log(t_href)
+    //     $.ajax(
+    //         {
+    //             type: 'POST',
+    //             headers: {'X-CSRFToken': csrf},
+    //             url: "/baskets/add/" + t_href + "/",
+    //             success: function (data) {
+    //                 $('.card_add_basket').html(data.result)
+    //                 swal('Спасибо!', 'Ваш товар, добавлен в корзину!', 'success')
+    //
+    //             },
+    //             error: function (data){
+    //                 console.log(data)
+    //             }
+    //         });
+    //     event.preventDefault()
+    // })
 }
