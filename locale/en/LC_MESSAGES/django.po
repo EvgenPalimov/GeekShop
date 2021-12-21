@@ -16,34 +16,32 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\GeekShop\settings.py:128
 msgid "English"
-msgstr "Английский"
+msgstr ""
 
 #: .\GeekShop\settings.py:129
 msgid "Russia"
-msgstr "Русский"
+msgstr ""
 
 #: .\mainapp\mixin.py:34
 #, python-format
 msgid "The file exceed the maximum size of %(limit_value)s MB."
-msgstr "Файл должен быть меньше %(limit_value)s МБ"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:7
 msgid "Messages"
-msgstr "Сообщение"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
 msgid "Site Maps"
-msgstr "Карты сайтов"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
 msgid "Static Files"
-msgstr "Статический файлы"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
 msgid "Syndication"
@@ -57,7 +55,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:51
 msgid "That page number is not an integer"
-msgstr "Этот номер страницы не является целым числом"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:53
 msgid "That page number is less than 1"
@@ -69,20 +67,20 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:22
 msgid "Enter a valid value."
-msgstr "Введите правильное значение"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:93
 #: .\venv\Lib\site-packages\django\forms\fields.py:675
 msgid "Enter a valid URL."
-msgstr "Введите действительный URL"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:150
 msgid "Enter a valid integer."
-msgstr "Введите верное число"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:161
 msgid "Enter a valid email address."
-msgstr "Введите действительную почту"
+msgstr ""
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: .\venv\Lib\site-packages\django\core\validators.py:262
@@ -100,7 +98,7 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\core\validators.py:288
 #: .\venv\Lib\site-packages\django\core\validators.py:311
 msgid "Enter a valid IPv4 address."
-msgstr "Введите действительный IPv4-адрес."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:296
 #: .\venv\Lib\site-packages\django\core\validators.py:312
@@ -114,7 +112,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:340
 msgid "Enter only digits separated by commas."
-msgstr "Вводите только цифры, разделенные запятыми."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:346
 #, python-format
@@ -157,7 +155,7 @@ msgstr[1] ""
 #: .\venv\Lib\site-packages\django\forms\fields.py:292
 #: .\venv\Lib\site-packages\django\forms\fields.py:327
 msgid "Enter a number."
-msgstr "Введите число"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:434
 #, python-format
@@ -191,12 +189,12 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\core\validators.py:559
 msgid "Null characters are not allowed."
-msgstr "Пустые символы не допускаются."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1197
 #: .\venv\Lib\site-packages\django\forms\models.py:768
 msgid "and"
-msgstr "и"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1199
 #, python-format
@@ -210,11 +208,11 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:101
 msgid "This field cannot be null."
-msgstr "Это поле не может быть пустым."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:102
 msgid "This field cannot be blank."
-msgstr "Это поле не может быть пустым."
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:103
 #, python-format
@@ -232,7 +230,7 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:126
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr "Поле типа: %(field_type)s"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:958
 #, python-format
@@ -274,7 +272,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1150
 msgid "Date (without time)"
-msgstr "Дата"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1288
 #, python-format
@@ -301,7 +299,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1446
 msgid "Decimal number"
-msgstr "Десятичное число"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1585
 #, python-format
@@ -312,15 +310,15 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1588
 msgid "Duration"
-msgstr "Продолжительность"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1638
 msgid "Email address"
-msgstr "Адрес электронной почты"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1661
 msgid "File path"
-msgstr "Путь файла"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1727
 #, python-format
@@ -329,7 +327,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1729
 msgid "Floating point number"
-msgstr "Число с плавающей запятой"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1767
 #, python-format
@@ -338,7 +336,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1769
 msgid "Integer"
-msgstr "Integer"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1852
 msgid "Big (8 byte) integer"
@@ -346,7 +344,7 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1867
 msgid "Small integer"
-msgstr "Маленькое целое число"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1875
 msgid "IPv4 address"
@@ -1225,14 +1223,11 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#~ msgid "Applications"
-#~ msgstr "Приложения"
-
 #~ msgid "Users"
 #~ msgstr "Пользователи"
 
 #~ msgid "Categories"
 #~ msgstr "Категории"
 
-#~ msgid "Product"
-#~ msgstr "Продукт"
+#~ msgid "Products"
+#~ msgstr "Продукты"

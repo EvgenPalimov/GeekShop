@@ -25,7 +25,7 @@ class BasketAddCreateView(CreateView, UserDipatchMixin, BaseClassContextMixin):
             else:
                 Basket.objects.create(user=user_select, product=product, quantity=1)
 
-            products = Product.objects.all()
+            products = self.object
             context = {'products': products}
             result = render_to_string('mainapp/includes/card.html', context, request=request)
             return JsonResponse({'result': result})

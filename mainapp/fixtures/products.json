@@ -70,5 +70,53 @@
       "quantity": 16,
       "category": 1
     }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 7,
+    "fields": {
+      "name": "Дубленка из белого меха",
+      "image": "product_image/white_fur_coat.jpg",
+      "description": "Дубленка из искусственного меха и эко замши в кремовом цвете. Oversize крой, отложной воротник, спущенная линия плеча, боковые карманы.",
+      "price": "8999.00",
+      "quantity": 17,
+      "category": 1
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 8,
+    "fields": {
+      "name": "Атласное платье Миди с вырезом",
+      "image": "product_image/satin_dress_blue.jpg",
+      "description": "Длинное платье с фигурными вырезами вокруг талии. Круглый вырез, широкие расклешенные рукава.",
+      "price": "5999.00",
+      "quantity": 12,
+      "category": 1
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 9,
+    "fields": {
+      "name": "Блузка с кроем на одно плечо",
+      "image": "product_image/white_blouse.jpg",
+      "description": "Блузка свободного кроя в молочном цвете. Блузку можно приспустить на одно плечо.",
+      "price": "1499.00",
+      "quantity": 20,
+      "category": 1
+    }
+  },
+  {
+    "model": "mainapp.product",
+    "pk": 32,
+    "fields": {
+      "name": "Рюкзак Addidas",
+      "image": "product_image/Ryukzak_addias.jpg",
+      "description": "Иногда тебе кажется, что ты носишь с собой по меньшей мере десять кило кирпичей? Распредели нагрузку правильно с этим рюкзаком adidas. Мягкие лямки не впиваются в плечи, поэтому ты всегда будешь чувствовать себя комфортно. Даже если твой рюкзак действительно заполнен под завязку.",
+      "price": "2699.00",
+      "quantity": 14,
+      "category": 2
+    }
   }
 ]

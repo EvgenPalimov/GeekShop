@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
       "name": "Одежда",
-      "description": "Описание для класса одежды"
+      "description": "Описание для класса одежды",
+      "is_active": true
     }
   },
   {
@@ -12,7 +13,8 @@
     "pk": 2,
     "fields": {
       "name": "Акссесуары",
-      "description": ""
+      "description": "",
+      "is_active": true
     }
   },
   {
@@ -20,7 +22,8 @@
     "pk": 3,
     "fields": {
       "name": "Обувь",
-      "description": ""
+      "description": "",
+      "is_active": true
     }
   },
   {
@@ -28,7 +31,8 @@
     "pk": 4,
     "fields": {
       "name": "Новинки",
-      "description": ""
+      "description": "",
+      "is_active": true
     }
   },
   {
@@ -36,7 +40,17 @@
     "pk": 5,
     "fields": {
       "name": "Подарки",
-      "description": ""
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "mainapp.productcategory",
+    "pk": 9,
+    "fields": {
+      "name": "Тест1",
+      "description": "тест",
+      "is_active": false
     }
   }
 ]

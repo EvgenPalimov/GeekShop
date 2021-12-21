@@ -1,16 +1,16 @@
 from django.core.validators import FileExtensionValidator, validate_image_file_extension
 from django.db import models
+from authapp.models import MaxSizeValidator
 
-import os
 
 # Create your models here.
-from authapp.models import MaxSizeValidator
 
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
+
     def __str__(self):
         return f'{self.name}'
 
