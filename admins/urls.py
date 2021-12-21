@@ -3,7 +3,7 @@ from django.views.i18n import set_language
 
 from admins.views import UserTemplateView, UserListView, UserCreateView, UserUpdateView, UserDeleteView, \
     ProductsListView, ProductCreateView, ProductUpdateView, ProductDeleteView, CategoriesListView, \
-    CategoriesCreateView, CategoriesUpdateView, CategoriesDeleteView
+    CategoriesCreateView, CategoriesUpdateView, CategoriesDeleteView, OrdersListView, order_change_status
 
 app_name = 'admins'
 urlpatterns = [
@@ -23,6 +23,9 @@ urlpatterns = [
     path('categories-create/', CategoriesCreateView.as_view(), name='admin_categories_create'),
     path('categories-update/<int:pk>', CategoriesUpdateView.as_view(), name='admin_categories_update'),
     path('categories-delete/<int:pk>', CategoriesDeleteView.as_view(), name='admin_categories_delete'),
+
+    path('orders/', OrdersListView.as_view(), name='admin_orders'),
+    path('change_status/<int:pk>/', order_change_status, name='change_status'),
 
     path('lang/', set_language, name='set_language'),
 ]

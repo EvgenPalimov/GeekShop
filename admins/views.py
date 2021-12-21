@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
@@ -13,6 +15,7 @@ from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, Produc
 from authapp.models import User
 from mainapp.mixin import CustomDispatchMixin, BaseClassContextMixin
 from mainapp.models import Product, ProductCategory
+from ordersapp.models import Order
 
 
 class UserTemplateView(TemplateView, CustomDispatchMixin):
@@ -137,3 +140,23 @@ class CategoriesDeleteView(DeleteView, CustomDispatchMixin, BaseClassContextMixi
             self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class OrdersListView(ListView, CustomDispatchMixin, BaseClassContextMixin):
+    model = Order
+    template_name = 'admins/orders/admin-orders-read.html'
+    title = 'Админ | Заказы'
+
+
+
+def order_change_status(request, pk):
+    statuses = ['FM', 'STP', 'PD', 'PRD', 'RDY', 'CNC']
+    element = Order.objects.get(id=pk)
+    element.status = statuses[(statuses.index(element.status) + 1) % len(statuses)]
+    element.save()
+
+    return HttpResponseRedirect(reverse('admins:admin_orders'))
+
+
+
+

@@ -31,6 +31,11 @@ class Order(models.Model):
     status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='Статус', max_length=3, default=FORMING)
     is_active = models.BooleanField(verbose_name='Активный', default=True)
 
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
     def __str__(self):
         return f'Текущий заказ {self.pk}'
 
