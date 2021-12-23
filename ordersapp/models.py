@@ -26,7 +26,7 @@ class Order(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created = models.DateTimeField(verbose_name='Создан',auto_now_add=True)
+    created = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Обновлен', auto_now=True)
     status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='Статус', max_length=3, default=FORMING)
     is_active = models.BooleanField(verbose_name='Активный', default=True)
@@ -41,7 +41,6 @@ class Order(models.Model):
 
     def get_total_values(self):
         return self.orderitems.select_related()
-
 
     def get_total_quantity(self):
         return sum(list(map(lambda x: x.quantity, self.get_total_values())))
