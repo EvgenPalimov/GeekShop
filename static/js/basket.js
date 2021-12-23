@@ -27,7 +27,7 @@ window.onload = function () {
     //             url: "/baskets/add/" + t_href + "/",
     //             success: function (data) {
     //                 $('.card_add_basket').html(data.result)
-    //                 swal('Спасибо!', 'Ваш товар, добавлен в корзину!', 'success')
+    //                 swal('РЎРїР°СЃРёР±Рѕ!', 'РўРѕРІР°СЂ, СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ РІ РєРѕСЂР·РёРЅСѓ!', 'success')
     //
     //             },
     //             error: function (data){

@@ -33,6 +33,7 @@ class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
+
         else:
             basket_item = Basket.objects.filter(user=self.request.user)
             if basket_item:
