@@ -2,14 +2,17 @@ from django.db import transaction
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from baskets.models import Basket
+
 from mainapp.mixin import BaseClassContextMixin, UserDipatchMixin
+from mainapp.models import Product
 from ordersapp.forms import OrderForm, OrderItemsForm
 from ordersapp.models import Order, OrderItem
 
@@ -116,6 +119,12 @@ def order_forming_complete(request, pk):
     order.status = Order.SEND_TO_PROCEED
     order.save()
     return HttpResponseRedirect(reverse('orders:List'))
+
+def order_check_price(request, pk):
+    if request.is_ajax():
+        product = Product.objects.get(pk=pk).price
+        products = {'product': product}
+        return JsonResponse((products))
 
 @receiver(pre_save, sender=Basket)
 @receiver(pre_save, sender=OrderItem)
