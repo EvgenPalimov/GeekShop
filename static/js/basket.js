@@ -13,8 +13,8 @@ window.onload = function () {
                     console.log(data)
                 }
             });
-        event.preventDefault()
-    })
+        event.preventDefault();
+    });
 
     // var csrf = $('meta[name="csrf_token"]').attr('content');
     // $('.button_basket').on('click', 'button', function (event) {
