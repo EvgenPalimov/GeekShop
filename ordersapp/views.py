@@ -120,11 +120,14 @@ def order_forming_complete(request, pk):
     order.save()
     return HttpResponseRedirect(reverse('orders:List'))
 
-def order_check_price(request, pk):
+
+def get_product_price(request, pk):
     if request.is_ajax():
-        product = Product.objects.get(pk=pk).price
-        products = {'product': product}
-        return JsonResponse((products))
+        product = Product.objects.get(pk=pk)
+        if product:
+            return JsonResponse({'price': product.price})
+        return JsonResponse({'price': 0})
+
 
 @receiver(pre_save, sender=Basket)
 @receiver(pre_save, sender=OrderItem)
@@ -135,10 +138,9 @@ def product_quantity_save(sender, instance, **kwargs):
         instance.product.quantity -= instance.quantity
         instance.product.save()
 
+
 @receiver(pre_delete, sender=Basket)
 @receiver(pre_delete, sender=OrderItem)
 def product_quantity_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
     instance.product.save()
-
-

@@ -17,8 +17,8 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         return
 
     api_url = urlunparse(('http', 'api.vk.com', 'method/users.get', None,
-                         urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_200', 'personal')),
-                                               access_token=response['access_token'], v=5.131)), None))
+                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_200', 'personal')),
+                                                access_token=response['access_token'], v=5.131)), None))
 
     resp = requests.get(api_url)
     if resp.status_code != 200:
@@ -56,7 +56,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                 photo.write(photo_response.content)
             user.image = path_avatar
 
-    if data['personal']['langs']:
+    if data['personal']:
         user.userprofile.langs = data['personal']['langs'][0] if len(data['personal']['langs'][0]) > 0 else 'EN'
 
     user.save()
