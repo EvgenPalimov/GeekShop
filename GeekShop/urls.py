@@ -25,6 +25,7 @@ import debug_toolbar
 from mainapp.views import IndexTemplateView
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', IndexTemplateView.as_view(), name='index'),
     path('products/', include('mainapp.urls', namespace='mainapp')),
     path('users/', include('authapp.urls', namespace='authapp')),
