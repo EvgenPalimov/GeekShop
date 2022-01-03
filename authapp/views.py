@@ -13,10 +13,8 @@ from django.views.generic import CreateView, UpdateView
 from authapp.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserProfileEditForm
 from authapp.models import User
 from mainapp.mixin import BaseClassContextMixin, UserDipatchMixin
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 
-@method_decorator(csrf_exempt, name='dispatch')
+
 class UserLoginView(LoginView, BaseClassContextMixin):
     model = User
     template_name = 'authapp/login.html'
