@@ -3,14 +3,14 @@ from django.http import HttpResponseRedirect, JsonResponse
 # Create your views here.
 
 from django.template.loader import render_to_string
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 from baskets.models import Basket
 from mainapp.mixin import UserDipatchMixin, BaseClassContextMixin
 from mainapp.models import Product
+from mainapp.views import CatalogListView
 
 
-
-class BasketAddCreateView(CreateView, UserDipatchMixin, BaseClassContextMixin):
+class BasketAddCreateView(CreateView, CatalogListView, UserDipatchMixin, BaseClassContextMixin):
     title = 'GeekShop | Создать продукт'
 
     def post(self, request, *args, **kwargs):

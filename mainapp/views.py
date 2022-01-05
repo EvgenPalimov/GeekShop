@@ -23,7 +23,7 @@ class CatalogListView(ListView, BaseClassContextMixin):
 
         context['categories'] = ProductCategory.objects.all()
         if self.kwargs:
-            products = Product.objects.filter(category_id=self.kwargs.get('id_category')).order_by('name')
+            products = Product.objects.filter(category_id=self.kwargs['id_category'].order_by('name'))
         else:
             products = Product.objects.all().order_by('name')
         paginator = Paginator(products, per_page=3)
