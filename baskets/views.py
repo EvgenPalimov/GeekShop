@@ -10,7 +10,7 @@ from mainapp.models import Product
 from mainapp.views import CatalogListView
 
 
-class BasketAddCreateView(CreateView, CatalogListView, UserDipatchMixin, BaseClassContextMixin):
+class BasketAddCreateView(CreateView, UserDipatchMixin, BaseClassContextMixin):
     title = 'GeekShop | Создать продукт'
 
     def post(self, request, *args, **kwargs):
