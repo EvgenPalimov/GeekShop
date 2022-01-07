@@ -1,13 +1,11 @@
 from collections import OrderedDict
 
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 
 from admins.forms import UserAdminRegistrationForm, UserAdminProfileForm, ProductAdminRegistrationForm, \

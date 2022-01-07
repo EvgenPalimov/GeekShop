@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 # Create your views here.
 
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 from baskets.models import Basket
 from mainapp.mixin import UserDipatchMixin, BaseClassContextMixin
