@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView
 from django.conf import settings
@@ -65,11 +66,11 @@ def get_link_category():
 def get_product(pk):
     if settings.LOW_CACHE:
         key = f'product{pk}'
-        get_product = cache.get(key)
-        if get_product is None:
-            get_product = Product.objects.get(id=pk)
-            cache.set(key, get_product)
-        return get_product
+        product = cache.get(key)
+        if product is None:
+            product = get_object_or_404(Product, id=pk)
+            cache.set(key, product)
+        return product
     else:
         return Product.objects.get(id=pk)
 
