@@ -15,7 +15,7 @@ class IndexTemplateView(TemplateView, BaseClassContextMixin):
     template_name = 'mainapp/index.html'
     title = 'GeekShop'
 
-@cache_page(3600)
+
 class CatalogListView(ListView, BaseClassContextMixin):
     model = Product
     template_name = 'mainapp/products.html'
