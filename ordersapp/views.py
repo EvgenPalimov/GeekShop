@@ -22,7 +22,7 @@ class OrderList(ListView, BaseClassContextMixin, UserDipatchMixin):
     title = 'GeekShop | Список заказов'
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user, is_active=True)
+        return Order.objects.filter(user=self.request.user, is_active=True).select_related()
 
 
 class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
@@ -39,7 +39,7 @@ class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
             formset = OrderFormSet(self.request.POST)
 
         else:
-            basket_item = Basket.objects.filter(user=self.request.user)
+            basket_item = Basket.objects.filter(user=self.request.user).select_related()
             if basket_item:
                 OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=basket_item.count())
                 formset = OrderFormSet()

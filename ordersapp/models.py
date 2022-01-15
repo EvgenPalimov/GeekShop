@@ -29,7 +29,7 @@ class Order(models.Model):
     created = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Обновлен', auto_now=True)
     status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='Статус', max_length=3, default=FORMING)
-    is_active = models.BooleanField(verbose_name='Активный', default=True)
+    is_active = models.BooleanField(verbose_name='Активный', db_index=True, default=True)
 
     class Meta:
         ordering = ('-created',)
@@ -42,12 +42,6 @@ class Order(models.Model):
     def get_total_values(self):
         return self.orderitems.select_related()
 
-    def get_total_quantity(self):
-        return sum(list(map(lambda x: x.quantity, self.get_total_values())))
-
-    def get_total_cost(self):
-        return sum(list(map(lambda x: x.get_product_cost(), self.get_total_values())))
-
     def get_items(self):
         pass
 
@@ -57,6 +51,13 @@ class Order(models.Model):
             item.save()
         self.is_active = False
         self.save()
+
+    def get_summary(self):
+        items = self.orderitems.select_related()
+        return {
+            'get_total_cost': sum(list(map(lambda x: x.get_product_cost(), items))),
+            'get_total_quantity': sum(list(map(lambda x: x.quantity, items)))
+        }
 
 
 class OrderItem(models.Model):
