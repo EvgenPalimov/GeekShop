@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django.contrib import messages
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -95,7 +96,6 @@ class ProductDeleteView(DeleteView, CustomDispatchMixin, BaseClassContextMixin):
     title = 'Админ | Удаление товара'
 
 
-
 class CategoriesListView(ListView, CustomDispatchMixin, BaseClassContextMixin):
     model = ProductCategory
     template_name = 'admins/categories/admin-categories-read.html'
@@ -123,6 +123,13 @@ class CategoriesUpdateView(UpdateView, CustomDispatchMixin, BaseClassContextMixi
     success_url = reverse_lazy('admins:admin_categories')
     title = 'Админ | Редактирование категории'
 
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class CategoriesDeleteView(DeleteView, CustomDispatchMixin, BaseClassContextMixin):
     model = ProductCategory
@@ -133,8 +140,10 @@ class CategoriesDeleteView(DeleteView, CustomDispatchMixin, BaseClassContextMixi
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object.is_active:
+            self.object.product_set.update(is_active=False)
             self.object.is_active = False
         else:
+            self.object.product_set.update(is_active=True)
             self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())

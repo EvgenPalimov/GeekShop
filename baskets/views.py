@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 from django.http import HttpResponseRedirect, JsonResponse
 # Create your views here.
 
@@ -20,12 +21,12 @@ class BasketAddCreateView(UpdateView, UserDipatchMixin, BaseClassContextMixin):
             user_select = request.user
             product = Product.objects.get(id=self.kwargs['id'])
             baskets = Basket.objects.filter(user=user_select, product=product).select_related()
-            if baskets:
-                basket = baskets.first()
-                basket.quantity += 1
-                basket.save()
-            else:
+            if not baskets.exists():
                 Basket.objects.create(user=user_select, product=product, quantity=1)
+            else:
+                basket = baskets.first()
+                basket.quantity = F('quantity')+1
+                basket.save()
 
         messages.set_level(request, messages.SUCCESS)
         messages.success(request, 'Товар успешно добавлен в корзину!')
