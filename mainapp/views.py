@@ -48,3 +48,15 @@ class ProductDetail(DetailView):
         product = self.get_object()
         context['product'] = product
         return context
+
+
+def get_link_category():
+    if settings.LOW_CACHE:
+        key = 'link_category'
+        link_category = cache.get(key)
+        if link_category is None:
+            link_category = ProductCategory.objects.all()
+            cache.set(key, link_category)
+        return link_category
+    else:
+        return ProductCategory.objects.all()

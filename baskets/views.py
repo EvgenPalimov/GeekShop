@@ -18,8 +18,8 @@ class BasketAddCreateView(UpdateView, UserDipatchMixin, BaseClassContextMixin):
     def post(self, request, *args, **kwargs):
         if request.is_ajax:
             user_select = request.user
-            product = Product.objects.get(id=self.kwargs.get('id'))
-            baskets = Basket.objects.filter(user=user_select, product=product)
+            product = Product.objects.get(id=self.kwargs['id'])
+            baskets = Basket.objects.filter(user=user_select, product=product).select_related()
             if baskets:
                 basket = baskets.first()
                 basket.quantity += 1
@@ -43,7 +43,7 @@ def basket_edit(request, id_basket, quantity):
         basket.quantity = quantity
         basket.save()
 
-        baskets = Basket.objects.filter(user=request.user)
+        baskets = Basket.objects.filter(user=request.user).select_related()
         context = {'baskets': baskets}
         result = render_to_string('baskets/basket.html', context)
         return JsonResponse({'result': result})
