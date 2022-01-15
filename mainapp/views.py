@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView
 from django.conf import settings
 from django.core.cache import cache
@@ -14,7 +15,7 @@ class IndexTemplateView(TemplateView, BaseClassContextMixin):
     template_name = 'mainapp/index.html'
     title = 'GeekShop'
 
-
+@cache_page(3600)
 class CatalogListView(ListView, BaseClassContextMixin):
     model = Product
     template_name = 'mainapp/products.html'
