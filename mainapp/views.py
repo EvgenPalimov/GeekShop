@@ -45,8 +45,7 @@ class ProductDetail(DetailView):
     def get_context_data(self, **kwargs):
         """Добавляем список категории для вывода сайдбара с катеногриями на странице каталога"""
         context = super(ProductDetail, self).get_context_data(**kwargs)
-        product = self.get_object()
-        context['product'] = product
+        context['product'] = get_product(self.kwargs['pk'])
         return context
 
 
@@ -60,3 +59,17 @@ def get_link_category():
         return link_category
     else:
         return ProductCategory.objects.all()
+
+
+def get_product(pk):
+    if settings.LOW_CACHE:
+        key = f'product{pk}'
+        get_product = cache.get(key)
+        if get_product is None:
+            get_product = Product.objects.get(id=pk)
+            cache.set(key, get_product)
+        return get_product
+    else:
+        return Product.objects.get(id=pk)
+
+
