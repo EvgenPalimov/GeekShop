@@ -13,8 +13,8 @@ class Command(BaseCommand):
 
         ProductCategory.objects.all().delete()
         for category in categories:
-            cat = category.get()
-            cat['id'] = category.get()
+            cat = category.get('fields')
+            cat['id'] = category.get('pk')
             new_category = ProductCategory(**cat)
             new_category.save()
 
@@ -22,19 +22,13 @@ class Command(BaseCommand):
 
         Product.objects.all().delete()
         for product in products:
-            prod = product.get()
-            prod['id'] = product.get()
-            category = prod.get()
+            prod = product.get('fields')
+            prod['id'] = product.get('pk')
+            category = prod.get('category')
             _category = ProductCategory.objects.get(id=category)
             prod['category'] = _category
             new_category = Product(**prod)
             new_category.save()
 
-            # users = load_from_json('authapp/fixtures/users.json')
-            #
-            User.objects.all().delete()
-            # for user in users:
-            #     us = user.get('fields')
-            #     us['id'] = user.get('pk')
-            #     new_category = User(**us)
-            #     new_category.save()
+        User.objects.all().delete()
+        User.objects.create_superuser('uegene', 'uegene@mail.ru', '1')

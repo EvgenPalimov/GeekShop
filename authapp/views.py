@@ -22,10 +22,10 @@ class UserLoginView(LoginView, BaseClassContextMixin):
     title = 'GeekShop | Авторизация'
     success_url = reverse_lazy('mainapp:products')
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.success_url)
-        return HttpResponseRedirect(reverse('authapp:login'))
+    # def get(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return redirect(self.success_url)
+    #     return HttpResponseRedirect(reverse('authapp:login'))
 
 
 class UserShopCreateView(CreateView, BaseClassContextMixin):
