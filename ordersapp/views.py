@@ -63,8 +63,6 @@ class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
             if orderitems.is_valid():
                 orderitems.instance = self.object
                 orderitems.save()
-            if self.object.get_total_cost == 0:
-                self.object.delete()
         return super(OrderCreate, self).form_valid(form)
 
 
@@ -97,9 +95,6 @@ class OrderUpdate(UpdateView, BaseClassContextMixin, UserDipatchMixin):
             if orderitems.is_valid():
                 orderitems.instance = self.object
                 orderitems.save()
-
-            if self.object.get_total_cost() == 0:
-                self.object.delete()
         return super(OrderUpdate, self).form_valid(form)
 
 
@@ -118,7 +113,7 @@ def order_forming_complete(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.status = Order.SEND_TO_PROCEED
     order.save()
-    return HttpResponseRedirect(reverse('orders:List'))
+    return HttpResponseRedirect(reverse('ordersapp:list'))
 
 
 def get_product_price(request, pk):
