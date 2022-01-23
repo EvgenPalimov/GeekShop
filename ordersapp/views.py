@@ -63,6 +63,8 @@ class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
             if orderitems.is_valid():
                 orderitems.instance = self.object
                 orderitems.save()
+            if self.object.get_total_cost == 0:
+                self.object.delete()
         return super(OrderCreate, self).form_valid(form)
 
 
@@ -139,3 +141,13 @@ def product_quantity_save(sender, instance, **kwargs):
 def product_quantity_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
     instance.product.save()
+
+
+def payment_result(request):
+    status = request.GET.get('ik_inv_st')
+    if status == 'success':
+        order_pk = request.GET.get('ik_pm_no')
+        order_item = Order.objects.get(pf=order_pk)
+        order_item.status = Order.PAID
+        order_item.save()
+    return HttpResponseRedirect(reverse('ordersapp:list'))
