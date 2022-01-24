@@ -33,6 +33,7 @@
                                     <th>Описание</th>
                                     <th>Цена</th>
                                     <th>Количество</th>
+                                    <th>Активность</th>
                                     <th>Категория</th>
                                     <th>Картинка</th>
                                 </tr>
@@ -47,6 +48,13 @@
                                         <td>{{ product.description }}</td>
                                         <td>{{ product.price }} руб.</td>
                                         <td>{{ product.quantity }} шт.</td>
+                                         <td class="text-center">
+                                            {% if product.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ product.category }}</td>
                                         <td><img width="50" height="50" src="{{ product.image.url }}"
                                                  class="img-thumbnail center" alt="Картинка продукта"></td>

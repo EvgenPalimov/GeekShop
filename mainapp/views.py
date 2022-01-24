@@ -30,7 +30,7 @@ class CatalogListView(ListView, BaseClassContextMixin):
             products = Product.objects.filter(category_id=self.kwargs.get('id_category')).select_related('category')
         else:
             products = Product.objects.all().select_related('category')
-        paginator = Paginator(products, per_page=3)
+        paginator = Paginator(products, per_page=6)
         page_number = self.request.GET.get('page', 1)
         page_obj = paginator.get_page(page_number)
         context['products'] = page_obj
