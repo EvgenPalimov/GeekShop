@@ -1,1 +1,1 @@
-web: gunicorn team_work.wsgi --log-file -
+web: gunicorn GeekShop.wsgi --log-file -
