@@ -27,14 +27,16 @@ class BasketAddCreateView(UpdateView, UserDipatchMixin, BaseClassContextMixin):
                 basket = baskets.first()
                 basket.quantity = F('quantity')+1
                 basket.save()
+            return JsonResponse(
+                {'result': 1, 'object': f'{self.kwargs["id"]}',
+                 'data': render_to_string(
+                     'mainapp/includes/card.html',
+                     {'product': product, 'request': request,
+                      'user': request.user})})
+        # messages.set_level(request, messages.SUCCESS)
+        # messages.success(request, 'Товар успешно добавлен в корзину!')
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-        messages.set_level(request, messages.SUCCESS)
-        messages.success(request, 'Товар успешно добавлен в корзину!')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        # products = self.object
-        # context = {'products': products}
-        # result = render_to_string('mainapp/includes/card.html', context, request=request)
-        # return JsonResponse({'result': result})
 
 
 @login_required

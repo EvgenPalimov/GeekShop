@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from baskets.models import Basket
@@ -115,7 +115,7 @@ def order_forming_complete(request, pk):
     order = get_object_or_404(Order, pk=pk)
     order.status = Order.SEND_TO_PROCEED
     order.save()
-    return HttpResponseRedirect(reverse('ordersapp:list'))
+    return redirect(reverse_lazy('ordersapp:read', kwargs={'pk': pk}))
 
 
 def get_product_price(request, pk):

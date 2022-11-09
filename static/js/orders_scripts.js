@@ -109,8 +109,30 @@ window.onload = function () {
             });
         event.preventDefault();
     });
-    // console.info('QUANTITY', quantity_arr)
-    // console.info('PRICE', price_arr)
 
+    var csrf = $('meta[name="csrf_token"]').attr('content');
+    $('.button_basket').on('click', 'button', function (event) {
+        let t_href = event.target.value
+        console.log(t_href)
+        $.ajax(
+            {
+                type: 'POST',
+                headers: {'X-CSRFToken': csrf},
+                url: "/baskets/add/" + t_href + "/",
+                success: function (data) {
+                    function callback(response) {
+                            if (response.result === 1) {
+                                document.getElementById(response.object).innerHTML = response.data
+                            }
+                        }
+                    swal.fire('Спасибо!', 'Товар, успешно добавлен в корзину!', 'success')
+
+                },
+                error: function (data){
+                    console.log(data)
+                }
+            });
+        event.preventDefault()
+    })
 
 }
