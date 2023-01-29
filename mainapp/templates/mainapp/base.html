@@ -14,14 +14,11 @@
 
     <title>{{ title }}</title>
 
-
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-
-
     {% block css %}
-
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
 
 </head>
@@ -51,7 +48,7 @@
                     <li class="nav-item">
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
-                                {{ user.username|default:'Пользователь' }}
+                                {{ user.username|default:'Пользователь'|title }}
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">

@@ -1,0 +1,29 @@
+body {
+    padding-top: 56px;
+}
+
+#start-purchase-btn {
+    background-color: #23364e;
+    border-color: #23364e;
+    color: white;
+}
+
+#start-purchase-link {
+    text-decoration: none;
+    color: white;
+}
+
+.text_black {
+    color: #343a40;
+    font-weight: 550;
+}
+
+.link-style {
+    text-decoration: none;
+    color: white;
+    text-transform: none;
+}
+
+.index-background {
+
+}

@@ -1,13 +1,13 @@
 {% if object.status == 'FM' %}
     <div class="container">
         <div class="d-flex justify-content-around">
-            <button class="btn btn-warning btn-round form-control w-25 my-2 last">
-                <a href="{% url 'orders:forming_complete' object.pk %}">
-                    совершить покупку
+            <button class="btn btn-info btn-round form-control mr-2 ml-2 my-2 last">
+                <a class="link-style" href="{% url 'orders:forming_complete' object.id %}">
+                    Совершить покупку
                 </a>
             </button>
-            <button class="btn btn-warning btn-round form-control w-25 my-2 last">
-                <a href="{% url 'orders:delete' object.pk %}">удалить</a>
+            <button class="btn btn-info btn-round form-control mr-2 ml-2 my-2 last">
+                <a class="link-style" href="{% url 'orders:delete' object.id %}">Удалить</a>
             </button>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <form name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
             {% csrf_token %}
           <input type="hidden" name="ik_co_id" value="51237daa8f2a2d8413000000"/>
-          <input type="hidden" name="ik_pm_no" value="{{  object.pk }}"/>
+          <input type="hidden" name="ik_pm_no" value="{{  object.id }}"/>
           <input type="hidden" name="ik_am" value="{{ object.get_total_cost }}"/>
           <input type="hidden" name="ik_cur" value="RUB"/>
           <input type="hidden" name="ik_suc_u" value="http://134.0.113.108:80/orders/payment/result/"/>
@@ -31,13 +31,11 @@
         </form>
     {% endif %}
 
+    <a class="link-style btn btn-info btn-round form-control my-2 last" href="{% url 'orders:list' %}">
+        К списку заказов
+    </a>
+    <a class="link-style btn btn-info btn-round form-control my-2 last" href="{% url 'index' %}">
+        На главную
+    </a>
 
-    <button class="btn btn-info btn-round form-control my-2 last">
-        <a href="{% url 'orders:list' %}">
-            к списку заказов
-        </a>
-    </button>
-    <button class="btn btn-light btn-round form-control  my-2 last">
-        <a href="{% url 'index' %}">на главную</a>
-    </button>
 </div>

@@ -127,7 +127,6 @@ def get_product_price(request, pk):
 
 
 @receiver(pre_save, sender=Basket)
-@receiver(pre_save, sender=OrderItem)
 def product_quantity_save(sender, instance, **kwargs):
     if instance.pk:
         instance.product.quantity -= instance.quantity - instance.get_item(int(instance.pk))
@@ -137,7 +136,6 @@ def product_quantity_save(sender, instance, **kwargs):
 
 
 @receiver(pre_delete, sender=Basket)
-@receiver(pre_delete, sender=OrderItem)
 def product_quantity_delete(sender, instance, **kwargs):
     instance.product.quantity += instance.quantity
     instance.product.save()

@@ -1,11 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-{% block css %}
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/products.css' %}" rel="stylesheet">
-{% endblock %}
-
 {% block content %}
     <!-- /.container -->
     <div class="container">
@@ -15,11 +10,11 @@
                 <div class="list-group">
                     {% for category in categories %}
                         {% if category.is_active %}
-                            <a href="{% url 'mainapp:category' category.id %}" class="list-group-item">
+                            <a href="{% url 'mainapp:category' category.id %}" class="list-group-item text_black">
                                 {{ category.name }}</a>
                         {% endif %}
                     {% endfor %}
-                    <a class="list-group-item" href="{% url 'mainapp:products' %}">Все категории</a>
+                    <a class="list-group-item text_black" href="{% url 'mainapp:products' %}">Все категории</a>
                 </div>
             </div>
             <!-- /.col-lg-3 -->
@@ -72,7 +67,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
-                            <a class="page-link" href="{% if products.has_previous %}
+                            <a class="page-link text_black" href="{% if products.has_previous %}
                                 ?page={{ products.previous_page_number}} {% endif %}"
                                tabindex="-1" aria-disabled="true">Предыдущая</a>
                         </li>
@@ -80,18 +75,18 @@
                         {% for page in products.paginator.page_range %}
                             {% if products.number == page %}
                             <li class="page-item active">
-                                <a class="page-link" href="?page={{ page }}">{{ page }}
+                                <a class="page-link text_black" href="?page={{ page }}">{{ page }}
                                     <span class="sr-only">(current)</span></a>
                             </li>
                             {% elif page > products.number|add:-3 and page < products.number|add:3 %}
                                 <li class="page-item">
-                                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                <a class="page-link text_black" href="?page={{ page }}">{{ page }}</a>
                             </li>
                             {% endif %}
                         {% endfor %}
 
                         <li class="page-item {% if not products.has_next %} disabled {% endif %}">
-                            <a class="page-link" href="{% if products.has_next %}
+                            <a class="page-link text_black" href="{% if products.has_next %}
                                 ?page={{ products.next_page_number }} {% endif %}">Следущая</a>
                         </li>
                     </ul>
