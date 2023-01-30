@@ -1,15 +1,11 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
-from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView
 from django.conf import settings
 from django.core.cache import cache
 
 from .mixin import BaseClassContextMixin
 from .models import ProductCategory, Product
-
-
-# Create your views here.
 
 
 class IndexTemplateView(TemplateView, BaseClassContextMixin):
@@ -27,7 +23,9 @@ class CatalogListView(ListView, BaseClassContextMixin):
 
         context['categories'] = get_link_category()
         if self.kwargs:
-            products = Product.objects.filter(category_id=self.kwargs.get('id_category')).select_related('category')
+            products = Product.objects.filter(
+                category_id=self.kwargs.get('id_category')).select_related(
+                'category')
         else:
             products = Product.objects.all().select_related('category')
         paginator = Paginator(products, per_page=6)
@@ -45,7 +43,6 @@ class ProductDetail(DetailView):
     template_name = 'mainapp/detail.html'
 
     def get_context_data(self, **kwargs):
-        """Добавляем список категории для вывода сайдбара с катеногриями на странице каталога"""
         context = super(ProductDetail, self).get_context_data(**kwargs)
         context['product'] = get_product(self.kwargs['pk'])
         return context
@@ -73,5 +70,3 @@ def get_product(pk):
         return product
     else:
         return Product.objects.get(id=pk)
-
-

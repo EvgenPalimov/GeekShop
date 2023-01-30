@@ -30,7 +30,6 @@
                                     {% endfor %}
                                 {% endif %}
                                 {{ field.errors.as_ul }}
-
                                 {% if field.name == 'price' %}
                                     {% if not field.value %}
                                     {% else %}
@@ -46,8 +45,6 @@
                                         {{ field }}
                                     {% endif %}
                                 {% endif %}
-
-
                             </td>
                         {% endfor %}
                     </tr>

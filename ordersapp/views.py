@@ -3,17 +3,15 @@ from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import CreateView, UpdateView, ListView, \
+    DeleteView, DetailView
+from django.shortcuts import get_object_or_404, redirect
 
-# Create your views here.
 from baskets.models import Basket
-
 from mainapp.mixin import BaseClassContextMixin, UserDipatchMixin
 from mainapp.models import Product
-from ordersapp.forms import OrderForm, OrderItemsForm
+from ordersapp.forms import OrderItemsForm
 from ordersapp.models import Order, OrderItem
 
 
@@ -22,7 +20,8 @@ class OrderList(ListView, BaseClassContextMixin, UserDipatchMixin):
     title = 'GeekShop | Список заказов'
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user, is_active=True).select_related()
+        return Order.objects.filter(user=self.request.user,
+                                    is_active=True).select_related()
 
 
 class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
@@ -34,14 +33,18 @@ class OrderCreate(CreateView, BaseClassContextMixin, UserDipatchMixin):
     def get_context_data(self, **kwargs):
         context = super(OrderCreate, self).get_context_data(**kwargs)
 
-        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem,
+                                             form=OrderItemsForm, extra=1)
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
 
         else:
-            basket_item = Basket.objects.filter(user=self.request.user).select_related()
+            basket_item = Basket.objects.filter(
+                user=self.request.user).select_related()
             if basket_item:
-                OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=basket_item.count())
+                OrderFormSet = inlineformset_factory(Order, OrderItem,
+                                                     form=OrderItemsForm,
+                                                     extra=basket_item.count())
                 formset = OrderFormSet()
                 for num, form in enumerate(formset.forms):
                     form.initial['product'] = basket_item[num].product
@@ -77,7 +80,8 @@ class OrderUpdate(UpdateView, BaseClassContextMixin, UserDipatchMixin):
     def get_context_data(self, **kwargs):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
 
-        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem,
+                                             form=OrderItemsForm, extra=1)
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)
         else:
@@ -129,7 +133,8 @@ def get_product_price(request, pk):
 @receiver(pre_save, sender=Basket)
 def product_quantity_save(sender, instance, **kwargs):
     if instance.pk:
-        instance.product.quantity -= instance.quantity - instance.get_item(int(instance.pk))
+        instance.product.quantity -= instance.quantity - instance.get_item(
+            int(instance.pk))
     else:
         instance.product.quantity -= instance.quantity
         instance.product.save()

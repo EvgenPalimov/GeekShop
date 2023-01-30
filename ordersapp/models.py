@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 
 # Create your models here.
@@ -28,8 +27,11 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Обновлен', auto_now=True)
-    status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='Статус', max_length=3, default=FORMING)
-    is_active = models.BooleanField(verbose_name='Активный', db_index=True, default=True)
+    status = models.CharField(choices=ORDER_STATUS_CHOICES,
+                              verbose_name='Статус', max_length=3,
+                              default=FORMING)
+    is_active = models.BooleanField(verbose_name='Активный', db_index=True,
+                                    default=True)
 
     class Meta:
         ordering = ('-created',)
@@ -59,15 +61,20 @@ class Order(models.Model):
     def get_summary(self):
         items = self.orderitems.select_related()
         return {
-            'get_total_cost': sum(list(map(lambda x: x.get_product_cost(), items))),
+            'get_total_cost': sum(
+                list(map(lambda x: x.get_product_cost(), items))),
             'get_total_quantity': sum(list(map(lambda x: x.quantity, items)))
         }
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, verbose_name='Заказ', related_name='orderitems', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, verbose_name='Продукты', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(verbose_name='Количество', default=0)
+    order = models.ForeignKey(Order, verbose_name='Заказ',
+                              related_name='orderitems',
+                              on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Продукты',
+                                on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(verbose_name='Количество',
+                                           default=0)
 
     def get_product_cost(self):
         return self.product.price * self.quantity

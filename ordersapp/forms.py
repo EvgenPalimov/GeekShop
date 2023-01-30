@@ -3,7 +3,6 @@ from ordersapp.models import Order, OrderItem
 
 
 class OrderForm(forms.ModelForm):
-
     class Meta:
         model = Order
         fields = ('__all__')
@@ -16,8 +15,7 @@ class OrderForm(forms.ModelForm):
 
 
 class OrderItemsForm(forms.ModelForm):
-
-    price = forms.CharField(label='цена',required=False)
+    price = forms.CharField(label='цена', required=False)
 
     class Meta:
         model = OrderItem

@@ -6,5 +6,6 @@ app_name = 'baskets'
 urlpatterns = [
     path('add/<int:id>/', BasketAddCreateView.as_view(), name='basket_add'),
     path('remove/<int:basket_id>/', basket_remove, name='basket_remove'),
-    path('edit/<int:id_basket>/<int:quantity>/', basket_edit, name='basket_edit')
+    path('edit/<int:id_basket>/<int:quantity>/', basket_edit,
+         name='basket_edit')
 ]

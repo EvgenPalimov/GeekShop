@@ -5,13 +5,15 @@ from mainapp.models import ProductCategory, Product
 
 
 class ProductsForm(ModelForm):
-    category = forms.ModelChoiceField(queryset=ProductCategory.objects.all().select_related(),
-                                      empty_label=None)
+    category = forms.ModelChoiceField(
+        queryset=ProductCategory.objects.all().select_related(),
+        empty_label=None)
     image = forms.ImageField(widget=forms.FileInput, required=False)
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'quantity', 'category', 'image']
+        fields = ['name', 'description', 'price', 'quantity', 'category',
+                  'image']
 
     def init(self, *args, **kwargs):
         super().init(*args, **kwargs)

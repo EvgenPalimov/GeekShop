@@ -5,7 +5,8 @@ from django.test.client import Client
 # Create your tests here.
 from authapp.models import User
 
-#TestCase
+
+# TestCase
 class UserManagementTestCase(TestCase):
     username = 'django'
     email = 'django@django.ru'
@@ -22,7 +23,9 @@ class UserManagementTestCase(TestCase):
     }
 
     def setUp(self) -> None:
-        self.user = User.objects.create_superuser(self.username, email=self.email, password=self.password)
+        self.user = User.objects.create_superuser(self.username,
+                                                  email=self.email,
+                                                  password=self.password)
         self.client = Client()
 
     # 1 Тест Авторизация
@@ -46,14 +49,17 @@ class UserManagementTestCase(TestCase):
     # 2. Тест Регистрация
     def test_register(self):
         # Начинаем регистрацию
-        response = self.client.post('/users/registration/', data=self.new_user_data)
+        response = self.client.post('/users/registration/',
+                                    data=self.new_user_data)
         self.assertEqual(response.status_code, 302)
 
         # Получаем пользователя
         new_user = User.objects.get(username=self.new_user_data['username'])
 
         # Готовим ссылку
-        activation_url = f"{settings.DOMAIN_NAME}/user/verify{self.new_user_data['email']}/{new_user.activation_key}/"
+        activation_url = \
+            f"{settings.DOMAIN_NAME}/user/verify" \
+            f"{self.new_user_data['email']}/{new_user.activation_key}/"
 
         response = self.client.get(activation_url)
         self.assertEqual(response.status_code, 302)
@@ -62,8 +68,5 @@ class UserManagementTestCase(TestCase):
         new_user.refresh_from_db()
         self.assertTrue(new_user.is_active)
 
-
     def tearDown(self) -> None:
         pass
-
-

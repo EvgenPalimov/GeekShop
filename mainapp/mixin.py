@@ -11,9 +11,10 @@ from django.views.generic.base import ContextMixin
 class CustomDispatchMixin(View):
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(CustomDispatchMixin, self).dispatch(request, *args, **kwargs)
-    
-    
+        return super(CustomDispatchMixin, self).dispatch(request, *args,
+                                                         **kwargs)
+
+
 class BaseClassContextMixin(ContextMixin):
     title = ''
 
@@ -36,7 +37,8 @@ class MaxSizeValidator(MaxValueValidator):
     def __call__(self, value):
         # get the file size as cleaned value
         cleaned = self.clean(value.size)
-        params = {'limit_value': self.limit_value, 'show_value': cleaned, 'value': value}
-        if self.compare(cleaned, self.limit_value * 1024 * 1024): # convert limit_value from MB to Bytes
+        params = {'limit_value': self.limit_value, 'show_value': cleaned,
+                  'value': value}
+        if self.compare(cleaned,
+                        self.limit_value * 1024 * 1024):
             raise ValidationError(self.message, code=self.code, params=params)
-

@@ -27,5 +27,5 @@ urlpatterns = [
     path('orders/', OrdersListView.as_view(), name='admin_orders'),
     path('change_status/<int:pk>/', order_change_status, name='change_status'),
 
-    path('lang/', set_language, name='set_language'),
+    # path('lang/', set_language, name='set_language'),
 ]

@@ -1,8 +1,6 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.http import HttpResponseRedirect, JsonResponse
-# Create your views here.
 
 from django.template.loader import render_to_string
 from django.views.generic import UpdateView
@@ -20,12 +18,14 @@ class BasketAddCreateView(UpdateView, UserDipatchMixin, BaseClassContextMixin):
         if request.is_ajax:
             user_select = request.user
             product = Product.objects.get(id=self.kwargs['id'])
-            baskets = Basket.objects.filter(user=user_select, product=product).select_related()
+            baskets = Basket.objects.filter(user=user_select,
+                                            product=product).select_related()
             if not baskets.exists():
-                Basket.objects.create(user=user_select, product=product, quantity=1)
+                Basket.objects.create(user=user_select, product=product,
+                                      quantity=1)
             else:
                 basket = baskets.first()
-                basket.quantity = F('quantity')+1
+                basket.quantity = F('quantity') + 1
                 basket.save()
             return JsonResponse(
                 {'result': 1, 'object': f'{self.kwargs["id"]}',
@@ -33,10 +33,6 @@ class BasketAddCreateView(UpdateView, UserDipatchMixin, BaseClassContextMixin):
                      'mainapp/includes/card.html',
                      {'product': product, 'request': request,
                       'user': request.user})})
-        # messages.set_level(request, messages.SUCCESS)
-        # messages.success(request, 'Товар успешно добавлен в корзину!')
-        # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 
 
 @login_required
