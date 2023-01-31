@@ -1,1 +1,0 @@
-web: gunicorn GeekShop.wsgi --log-file -
